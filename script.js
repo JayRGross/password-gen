@@ -1,14 +1,28 @@
-// Elements
-const password = document.querySelector('#password');
-const button = document.querySelector('button');
+var characterAmountRange = document.getElementById
+('characterAmountRange')
+var characterAmountNumber = document.getElementById
+('characterAmountNumber')
+var characterAmountSymbol = document.getElementById
+('characterAmountSymbol')
+var includeUppercaseElement = document.getElementById('includeUppercase')
+var includeNumbersElement = document.getElementById('includeNumbers')
+var includeSymbolElement = document.getElementById('includeSymbols')
+var form = document.getElementById('passwordGeneratorForm')
+var passwordDisplay = document.getElementById('passwordDisplay')
 
-// Password Data
 let characters = '012345678910abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+{}:<>?|';
-let passwordLength = 16;
-let passwordValue = '';
 
-// Create Password
-const createPassword = () => {
+characterAmountNumber.addEventListener('input', syncCharacterAmount)
+characterAmountRange.addEventListener('input', syncCharacterAmount)
+
+function syncCharacterAmount(e) {
+  var value = e.target.value
+  characterAmountNumber.value = value
+  characterAmountRange.value = value
+  includeSymbolElement.value = value
+}
+
+const generatePassword = () => {
   passwordValue = '';
 
   for (let i = 0; i < passwordLength; i++) {
@@ -18,6 +32,4 @@ const createPassword = () => {
 
   password.value = passwordValue;
 }
-
-//events
-button.addEventListener('click', createPassword);
+button.addEventListener('submit', generatePassword);
