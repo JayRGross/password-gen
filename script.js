@@ -1,35 +1,31 @@
-var characterAmountRange = document.getElementById
-('characterAmountRange')
-var characterAmountNumber = document.getElementById
-('characterAmountNumber')
-var characterAmountSymbol = document.getElementById
-('characterAmountSymbol')
-var includeUppercaseElement = document.getElementById('includeUppercase')
-var includeNumbersElement = document.getElementById('includeNumbers')
-var includeSymbolElement = document.getElementById('includeSymbols')
-var form = document.getElementById('passwordGeneratorForm')
-var passwordDisplay = document.getElementById('passwordDisplay')
+const empty = "";
+const uCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const lCase = "abcdefghijklmnopqrstuvwxyz";
+const number = "0123456789";
+const Symbol = "!@#$%^&*=-_";
 
-let characters = '012345678910abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+{}:<>?|';
+const pLength = document.getElementById("p-length")
+const uppercase = document.getElementById("p-uppercase")
+const lowercase = document.getElementById("p-lowercase")
+const pNumber = document.getElementById("p-number")
+const pSymbol = document.getElementById("p-symbol")
+const submit = document.getElementById("submit")
+const password = document.getElementById("password")
 
-characterAmountNumber.addEventListener('input', syncCharacterAmount)
-characterAmountRange.addEventListener('input', syncCharacterAmount)
+submit.addEventListener('click', () => {
+    let initialPassword = empty;
+    (uppercase.checked) ? initialPassword += uCase : "";
+    (lowercase.checked) ? initialPassword += lCase : "";
+    (pNumber.checked) ? initialPassword += number : "";
+    (pSymbol.checked) ? initialPassword += Symbol : "";
 
-function syncCharacterAmount(e) {
-  var value = e.target.value
-  characterAmountNumber.value = value
-  characterAmountRange.value = value
-  includeSymbolElement.value = value
+    password.value = generatePassword(pLength.value, initialPassword)
+});
+
+function generatePassword(l, initialPassword) {
+    let pass = "";
+    for (let i = 0; i < l; i++) {
+        pass += initialPassword.charAt(Math.floor(Math.random() * initialPassword.length));
+    }
+    return pass;
 }
-
-const generatePassword = () => {
-  passwordValue = '';
-
-  for (let i = 0; i < passwordLength; i++) {
-    let number = Math.floor(Math.random() * characters.length);
-    passwordValue += characters.substring(number, number +1);
-  }
-
-  password.value = passwordValue;
-}
-button.addEventListener('submit', generatePassword);
